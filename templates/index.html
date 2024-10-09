@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Video Animation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Text to Video Animation</h1>
+    
+    <form method="POST">
+        <label for="input_text">Enter text to process:</label><br>
+        <textarea name="input_text" id="input_text" rows="4" cols="50"></textarea><br><br>
+        <input type="submit" value="Generate Storyboard">
+    </form>
+
+    {% if input_text %}
+        <h2>Input Text:</h2>
+        <p>{{ input_text }}</p>
+
+        <h2>Entities:</h2>
+        <ul>
+            {% for entity in entities %}
+            <li>{{ entity[0] }} ({{ entity[1] }})</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Actions:</h2>
+        <ul>
+            {% for action in actions %}
+            <li>{{ action }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Sentiment:</h2>
+        <p>{{ sentiment['sentiment'] }} (Confidence: {{ sentiment['confidence'] }})</p>
+
+        <h2>Generated Animation Video:</h2>
+        <video width="600" controls>
+            <source src="{{ video_path }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    {% endif %}
+</body>
+</html>
